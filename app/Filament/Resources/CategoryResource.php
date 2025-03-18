@@ -18,14 +18,36 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Master Data';
+
+    public static function getNavigationSort(): ?int
+    {
+        return 1;
+    }
 
     public static function form(Form $form): Form
-    {
-        return $form
+{
+    return $form
+        ->schema([
+            //card
+            Forms\Components\Card::make()
             ->schema([
-                //
-            ]);
-    }
+
+                //image
+                Forms\Components\FileUpload::make('image')
+                  ->label('Category Image')
+                  ->placeholder('Category Image')
+                  ->required(),
+
+                //name
+                Forms\Components\TextInput::make('name')
+                  ->label('Category Name')
+                  ->placeholder('Category Name')
+                  ->required(),
+
+        ])
+    ]);
+}
 
     public static function table(Table $table): Table
     {
